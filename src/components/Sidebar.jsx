@@ -1,7 +1,7 @@
 import React from 'react';
 import { LayoutDashboard, ListOrdered, Users, BellRing, PlusCircle, LogOut } from 'lucide-react';
 
-export default function Sidebar({ view, setView, onDisconnect, alertCount, onNewOrder }) {
+export default function Sidebar({ view, setView, onLogout, alertCount, onNewOrder }) {
   const navItems = [
     { key: "dashboard", icon: <LayoutDashboard size={18} />, label: "Dashboard" },
     { key: "orders",    icon: <ListOrdered size={18} />, label: "Orders" },
@@ -53,10 +53,10 @@ export default function Sidebar({ view, setView, onDisconnect, alertCount, onNew
           <PlusCircle size={18} style={{ color: "var(--primary)" }} /> New Order
         </button>
         <button 
-          onClick={onDisconnect} 
+          onClick={onLogout} 
           style={{ display: "flex", alignItems: "center", gap: 12, width: "100%", padding: "10px 14px", borderRadius: "var(--radius-sm)", cursor: "pointer", border: "none", fontFamily: "inherit", fontSize: 13, fontWeight: 500, background: "transparent", color: "var(--text-muted)", textAlign: "left" }}
         >
-          <LogOut size={18} /> Disconnect
+          <LogOut size={18} /> Logout
         </button>
       </div>
     </div>

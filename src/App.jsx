@@ -58,12 +58,9 @@ export default function App() {
     });
   };
 
-  const handleDisconnect = async () => {
+  const handleLogout = async () => {
     if (client) await client.auth.signOut();
-    clearCreds();
     setSession(null);
-    setClient(null);
-    setNeedsSetup(true);
   };
 
   if (loading) {
@@ -83,10 +80,10 @@ export default function App() {
     return <Login onLogin={() => {}} />;
   }
 
-  return <FreightApp client={client} onDisconnect={handleDisconnect} />;
+  return <FreightApp client={client} onLogout={handleLogout} />;
 }
 
-function FreightApp({ client, onDisconnect }) {
+function FreightApp({ client, onLogout }) {
   const [orders, setOrders] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -135,7 +132,7 @@ function FreightApp({ client, onDisconnect }) {
   }
 
   return (
-    <Layout view={view} setView={setView} onDisconnect={onDisconnect} fetchAll={fetchAll} orders={orders} alertCount={alertOrders.length} onNewOrder={() => setShowNewOrder(true)}>
+    <Layout view={view} setView={setView} onLogout={onLogout} fetchAll={fetchAll} orders={orders} alertCount={alertOrders.length} onNewOrder={() => setShowNewOrder(true)}>
       {loading && (
         <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(11,15,25,0.7)", zIndex: 50, backdropFilter: "blur(4px)" }}>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
