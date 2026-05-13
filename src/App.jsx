@@ -9,6 +9,7 @@ import Orders from './pages/Orders';
 import Suppliers from './pages/Suppliers';
 import Alerts from './pages/Alerts';
 import NewOrderModal from './pages/NewOrderModal';
+import ChangePasswordModal from './pages/ChangePasswordModal';
 
 export default function App() {
   const [client, setClient] = useState(null);
@@ -90,6 +91,7 @@ function FreightApp({ client, onLogout }) {
   const [dbError, setDbError] = useState("");
   const [view, setView] = useState("dashboard");
   const [showNewOrder, setShowNewOrder] = useState(false);
+  const [showChangePassword, setShowChangePassword] = useState(false);
 
   const fetchAll = useCallback(async () => {
     setLoading(true); setDbError("");
@@ -132,7 +134,7 @@ function FreightApp({ client, onLogout }) {
   }
 
   return (
-    <Layout view={view} setView={setView} onLogout={onLogout} fetchAll={fetchAll} orders={orders} alertCount={alertOrders.length} onNewOrder={() => setShowNewOrder(true)}>
+    <Layout view={view} setView={setView} onLogout={onLogout} fetchAll={fetchAll} orders={orders} alertCount={alertOrders.length} onNewOrder={() => setShowNewOrder(true)} onChangePassword={() => setShowChangePassword(true)}>
       {loading && (
         <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(11,15,25,0.7)", zIndex: 50, backdropFilter: "blur(4px)" }}>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
@@ -156,6 +158,7 @@ function FreightApp({ client, onLogout }) {
       {view === "alerts" && <Alerts alertOrders={alertOrders} />}
 
       {showNewOrder && <NewOrderModal onClose={() => setShowNewOrder(false)} onCreate={createOrder} suppliers={suppliers} />}
+      {showChangePassword && <ChangePasswordModal onClose={() => setShowChangePassword(false)} />}
     </Layout>
   );
 }
