@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: freightdesk-web
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    routes:
+      # This ensures client-side routing works by redirecting all paths to index.html
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      # You will need to set these values in the Render Dashboard securely
+      - key: VITE_SUPABASE_URL
+        sync: false
+      - key: VITE_SUPABASE_ANON_KEY
+        sync: false
